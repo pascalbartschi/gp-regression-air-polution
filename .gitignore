@@ -1,0 +1,16 @@
+**/train*
+**/val*
+**/test*
+**/.idea
+**/pytransform/
+.DS_Store
+**/__pycache__
+**/*.pdf
+Dockerfile
+checker_client.py
+env.yaml
+data_analysis.py
+runner.sh
+
+
+
