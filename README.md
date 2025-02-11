@@ -3,24 +3,27 @@
 This project models air pollution (\(PM_{2.5}\)) concentrations using Gaussian Process Regression (GPR). The goal is to predict pollution levels at unmeasured locations using spatial data, while minimizing underpredictions in residential zones using an asymmetric loss function.
 
 ## Key Features
-- **Kernel Selection**: Utilized a composite kernel: 
-  \[
+- **Kernel Selection**: Utilized a composite kernel:
+  ```math
   k(x, x') = \sigma_0^2 + \text{const} \cdot Matern(\nu=1.5) + \text{WhiteNoise}
-  \]
+  ```
   for effective modeling of spatial correlations and measurement noise.
+  
 - **Normalization**: Applied Z-score normalization for the target values:
-  \[
+  ```math
   \hat{y} = \frac{y - \mu}{\sigma}
-  \]
+  ```
+  
 - **Data Reduction**: Used KMeans clustering for undersampling, reducing the computational overhead of GPR inference.
+
 - **Custom Cost Function**: Incorporated an asymmetric loss function:
-  \[
+  ```math
   \ell_w(f(x), \hat{f}(x)) = (f(x) - \hat{f}(x))^2 \cdot 
   \begin{cases} 
     50 & \text{if } \hat{f}(x) \leq f(x) \text{ and area\_id } = 1 \\ 
     1 & \text{otherwise} 
   \end{cases}
-  \]
+  ```
 
 ## Implementation
 ### Main Functions
@@ -30,9 +33,9 @@ This project models air pollution (\(PM_{2.5}\)) concentrations using Gaussian P
 
 ### Cost Function
 The overall cost is defined as:
-\[
+```math
 L(\hat{f}) = \frac{1}{n} \sum_{i=1}^{n} \ell_w(f(x_i), \hat{f}(x_i))
-\]
+```
 
 ## Results
 - Achieved accurate pollution predictions with minimal underestimation in residential zones.
